@@ -2,7 +2,7 @@ Note: a vtable is associated to a class, and allocated objects of the class in t
 
 When we want to call functions defined inside the class, their addresses will be found in the vtable corresponding to the address present in the object's heap chunk.
 
-In this challenge, after freeing the chunks, we can overwrite the chunks of size ``0x20`` (that contain vtable address) by the content of the file passed in argv[2]. We will specify a size of 0x18 to ensure it is the 0x20 chunks that are going to be reused (it will be 16-bit aligned).
+In this challenge, after freeing the chunks, we can overwrite the chunks of size ``0x20`` (that contain vtable address) by the content of the file passed in ``argv[2]``. We will specify a size of 0x18 to ensure it is the ``0x20``-sized chunks that are going to be reused (0x18 will be 16-bit aligned to 0x20).
 
 Moreover, we have a use after free vulnerability: ``Man::introduce()`` can still be called after the free. We are going to exploit this by modifying the address of the vtable used by the ``m`` object.
 
