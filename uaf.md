@@ -16,7 +16,8 @@ If we decrease ``(vtable+0x10)`` address by 8, trying to call ``m->introduce`` w
 
 first function of the old vtable (give_shell) :
 ```python
-old_vtable_1F =  elf.symbols["_ZTV3Man"]+0x10```
+old_vtable_1F =  elf.symbols["_ZTV3Man"]+0x10
+```
 give_shell takes the place of introduce as second function :
 ```python
 new_vtable_1F =  old_vtable_1F-8
