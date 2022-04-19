@@ -4,11 +4,11 @@ When we want to call functions defined inside the class, their addresses will be
 
 In this challenge, after freeing the chunks, we can overwrite the chunks of size ``0x20`` (that contain vtable address) by the content of the file passed in ``argv[2]``. We will specify a size of 0x18 to ensure it is the ``0x20``-sized chunks that are going to be reused (0x18 will be 16-bit aligned to 0x20).
 
-Moreover, we have a use after free vulnerability: ``Man::introduce()`` can still be called after the free. We are going to exploit this by modifying the address of the vtable used by the ``m`` object.
+Moreover, we have a use after free vulnerability: ``m->introduce`` (supposed to call ``Man::introduce``) can still be called after the free. We are going to exploit this by modifying the address of the vtable used by the ``m`` object, thus to make it call the ``give_shell`` function.
 
-introduce is the second function for Man vtable. We have:
+``introduce`` is the second function for Man vtable. We have:
 ``*(man_vtable+0x10)``   is ``give_shell`` address
-``*(man_vtable+0x10+8)`` is ``introduce`` address
+``*(man_vtable+0x10+8)`` is ``introduce``  address
 
 Note: first function in the vtable is after a 0x10 offset. In the heap, it is ``vtable+0x10`` that is stored.
 
