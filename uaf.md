@@ -27,8 +27,7 @@ give_shell takes the place of introduce as second function :
 ```python
 new_vtable_1F =  old_vtable_1F-8
 ```
-
-Now let's write th
+Now let's write our new vtable address into a file, so the content of the file will be stored in the heap chunk containing our objects' vtable. When we debug the binary, we clearly see that this chunk is located after another chunk of 0x30 containing the object's name and age variables, and its size is 0x20. That is why we specified an 0x18 address: so doing, it will realign the 0x18 size to 0x20, and it will be looking for a free 0x20 chunk, then it will find chunks containing vtable (for ``w`` then for ``m``).
 ```python
 shell = ssh("uaf", "pwnable.kr", password="guest", port=2222)
 wp = shell.process(["cat", "/dev/stdin", ">>", "/tmp/payload"])
