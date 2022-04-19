@@ -15,8 +15,8 @@ shell = remote("pwnable.kr", 9004)
 ```
 Win the game:
 ```python
-for i in optimal: 
-    shell.sendline(str(i))
+for move in optimal: 
+    shell.sendline(str(move))
 ```
 And go to shell.
 ```python
