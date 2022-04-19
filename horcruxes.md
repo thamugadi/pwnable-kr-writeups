@@ -1,3 +1,4 @@
+```python
 from pwn import *
 
 def parse_exp(text):
@@ -39,3 +40,4 @@ p.sendline("1")
 print p.recv()
 p.sendline(str(exp))
 print p.recv()
+```
