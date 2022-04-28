@@ -1,7 +1,5 @@
 .globl _start
-
 .section .text
-
 _start:
 
 mov r7, #223
@@ -35,8 +33,7 @@ mov r7, #0
 svc #0        
               
 .section .data
-              
-nopsled:      
+nopsled: 
 mov r3, r3
 mov r3, r3
 mov r3, r3
